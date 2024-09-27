@@ -1,0 +1,14 @@
+.card {
+  width: 1034px;
+  height: 500px;
+  gap: 0px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -4px 8px rgba(0, 0, 0, 0.1),
+    4px 0 8px rgba(0, 0, 0, 0.1), -4px 0 8px rgba(0, 0, 0, 0.1);
+}
