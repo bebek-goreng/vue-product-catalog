@@ -1,0 +1,29 @@
+.unavailable-product-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image: url("/src/assets/images/sad-face.png"); 
+  background-size: contain; 
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 35px;
+}
+
+p {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+button {
+  width: 465px;
+  height: 42px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: white;
+}
