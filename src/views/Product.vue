@@ -1,5 +1,5 @@
 <template>
-    <div class="product-view">
+    <div v-if="isValidCategory(product.category)" class="product-view">
         <div class="image-container">
             <img :src="product.image" alt="Product Image" />
         </div>
@@ -24,17 +24,21 @@
             </div>
         </div>
     </div>
+
+    <UnavailableProduct v-else :handleClick="fetchNextProduct" buttonName="Next Product" />
 </template>
 
 <script>
 import ProductButton from '../components/Button.vue';
 import RatingProduct from '../components/Rating.vue';
+import UnavailableProduct from './UnavailableProduct.vue';
 
 export default {
     name: 'ProductView',
     components: {
         ProductButton,
         RatingProduct,
+        UnavailableProduct
     },
     data() {
         return {
@@ -66,7 +70,10 @@ export default {
         getPriceColor(category) {
             return category === "men's clothing" ? '#002772' : category === "women's clothing" ? '#720060' : '#002772';
         },
-    },
+        isValidCategory(category) {
+            return category === "men's clothing" || category === "women's clothing";
+        }
+    }
 };
 </script>
 
