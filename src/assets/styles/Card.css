@@ -2,8 +2,6 @@
   width: 1034px;
   height: 500px;
   gap: 0px;
-  display: grid;
-  grid-template-columns: 40% 60%;
   position: relative;
   justify-content: center;
   align-items: center;

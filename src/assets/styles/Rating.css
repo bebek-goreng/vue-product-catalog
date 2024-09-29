@@ -1,0 +1,20 @@
+.rating-container {
+  display: flex;
+  align-items: center;
+}
+
+.rating-value {
+  margin-right: 10px;
+  font-size: 1em;
+}
+
+.stars-container {
+  display: flex;
+}
+
+.star {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
