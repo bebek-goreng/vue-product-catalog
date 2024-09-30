@@ -1,34 +1,38 @@
 <template>
-    <div v-if="isValidCategory(product.category)" class="product-view">
-        <div class="image-container">
-            <img :src="product.image" alt="Product Image" />
-        </div>
-        <div class="content-container">
-            <div>
-                <h1>{{ product.title }}</h1>
-                <div class="category">
-                    <p class="category-text">{{ product.category }}</p>
-                    <RatingProduct :rating="product.rating.rate" :ratingColor="getRatingColor(product.category)" />
-                </div>
-                <hr />
+    <div class="container">
+        <LoadingSpinner :isLoading="isLoading" />
+        <div v-if="!isLoading && isValidCategory(product.category)" class="product-view">
+            <div class="image-container">
+                <img :src="product.image" alt="Product Image" />
             </div>
-            <div class="description">
-                <p>{{ product.description }}</p>
-            </div>
-            <div>
-                <hr />
-                <h2 :style="{ color: getPriceColor(product.category) }">${{ product.price }}</h2>
+            <div class="content-container">
                 <div>
-                    <ProductButton :category="product.category" :nextProduct="fetchNextProduct" />
+                    <h1>{{ product.title }}</h1>
+                    <div class="category">
+                        <p class="category-text">{{ product.category }}</p>
+                        <RatingProduct :rating="product.rating.rate" :ratingColor="getRatingColor(product.category)" />
+                    </div>
+                    <hr />
+                </div>
+                <div class="description">
+                    <p>{{ product.description }}</p>
+                </div>
+                <div>
+                    <hr />
+                    <h2 :style="{ color: getPriceColor(product.category) }">${{ product.price }}</h2>
+                    <div>
+                        <ProductButton :category="product.category" :nextProduct="fetchNextProduct" />
+                    </div>
                 </div>
             </div>
         </div>
+        <UnavailableProduct v-else-if="!isLoading && !isValidCategory(product.category)" :handleClick="fetchNextProduct"
+            buttonName="Next Product" />
     </div>
-
-    <UnavailableProduct v-else :handleClick="fetchNextProduct" buttonName="Next Product" />
 </template>
 
 <script>
+import LoadingSpinner from '../components/Spinner.vue';
 import ProductButton from '../components/Button.vue';
 import RatingProduct from '../components/Rating.vue';
 import UnavailableProduct from './UnavailableProduct.vue';
@@ -36,6 +40,7 @@ import UnavailableProduct from './UnavailableProduct.vue';
 export default {
     name: 'ProductView',
     components: {
+        LoadingSpinner,
         ProductButton,
         RatingProduct,
         UnavailableProduct
@@ -44,6 +49,7 @@ export default {
         return {
             product: {},
             currentProductId: 1,
+            isLoading: false,
         };
     },
     created() {
@@ -51,6 +57,7 @@ export default {
     },
     methods: {
         async fetchProduct(productId) {
+            this.isLoading = true;
             try {
                 const response = await fetch(`https://fakestoreapi.com/products/${productId}`);
                 const data = await response.json();
@@ -58,6 +65,8 @@ export default {
                 this.$emit('categoryChanged', data.category);
             } catch (error) {
                 console.error('Error fetching product:', error);
+            } finally {
+                this.isLoading = false;
             }
         },
         fetchNextProduct() {

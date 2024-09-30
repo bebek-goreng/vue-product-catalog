@@ -1,3 +1,8 @@
+.container {
+  padding: 20px;
+  height: 100%;
+}
+
 .product-view {
   display: flex;
   justify-content: space-between;
@@ -54,4 +59,3 @@ h1 {
   overflow: auto;
   padding: 10px 0;
 }
-
